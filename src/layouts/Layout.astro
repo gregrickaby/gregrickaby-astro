@@ -1,0 +1,161 @@
+---
+import '@fontsource/fira-sans'
+import '@fontsource/abril-fatface'
+import config from '../lib/config'
+
+interface Props {
+    title: string
+    description: string
+}
+
+const { title, description } = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="preload" as="image" href="bg.avif" type="image/avif" />
+        <link rel="preconnect" href="https://secure.gravatar.com/" />
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://static.cloudflareinsights.com" />
+        <link rel="canonical" href="https://gregrickaby.com" />
+        <meta name="theme-color" content="#111111" />
+        <meta name="robots" content="index, follow" />
+        <meta name="generator" content={Astro.generator} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={config.siteUrl} />
+        <meta property="og:title" content={config.siteTitle} />
+        <meta property="og:description" content={config.metaDescription} />
+        <meta property="og:image" content={config.ogImage} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={config.siteUrl} />
+        <meta property="twitter:title" content={config.siteTitle} />
+        <meta property="twitter:description" content={config.metaDescription} />
+        <meta property="twitter:image" content={config.ogImage} />
+        <script
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'Person',
+                name: config.name,
+                jobTitle: config.jobTitle,
+                url: config.siteUrl,
+                sameAs: config.socialLinks.map((link) => link.url),
+            })}
+        ></script>
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+<style is:global>
+    :root {
+        --font-sans: 'Fira Sans', sans-serif;
+        --font-serif: 'Abril Fatface', serif;
+
+        --accent: #6366f1;
+        --accent-hover: #8b5cf6;
+        --accent-active: #d946ef;
+
+        --angle: 0deg;
+    }
+
+    html {
+        -webkit-font-smoothing: antialiased;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        background: url('/bg.avif') no-repeat center center/cover;
+        color: #fff;
+        font-family: var(--font-sans);
+        font-size: 1.25rem;
+        line-height: 1.5;
+        margin: 0;
+        min-height: 100vh;
+    }
+
+    main {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        margin: auto;
+        max-width: 65ch;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    h1 {
+        font-family: var(--font-serif);
+        font-size: 4rem;
+        font-weight: 700;
+        letter-spacing: 5px;
+        margin: 0;
+        line-height: normal;
+    }
+
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        height: 80px;
+        width: 80px;
+    }
+
+    .text-gradient {
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        animation: 10s rotate linear infinite;
+        background-image: conic-gradient(
+            from var(--angle) at 50% -25%,
+            var(--accent),
+            var(--accent-hover),
+            var(--accent-active),
+            var(--accent)
+        );
+    }
+
+    .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        padding: 1rem 0;
+    }
+
+    .social-icon {
+        background-color: #fff;
+        border-radius: 50%;
+        padding: 0.35rem;
+    }
+
+    .social-icon:hover {
+        background-color: var(--accent);
+    }
+
+    /* Type definitions for CSS custom properties. */
+    @property --angle {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+    }
+
+    @keyframes rotate {
+        to {
+            --angle: 360deg;
+        }
+    }
+</style>

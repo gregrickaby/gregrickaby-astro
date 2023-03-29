@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { Image } from 'astro:assets'
+import config from '../lib/config'
+import avatar from '../assets/avatar.avif'
+---
+
+<Layout title={config.siteTitle} description={config.siteDescription}>
+    <main>
+        <Image
+            alt={config.name}
+            class="avatar"
+            height={160}
+            src={avatar}
+            width={160}
+            loading="eager"
+        />
+        <h1 class="text-gradient">{config.name}</h1>
+        <p>{config.bio}</p>
+        <div class="social-links">
+            {
+                config.socialLinks.map((link) => (
+                    <a aria-label={link.name} href={link.url} rel="author">
+                        <img
+                            alt={link.name}
+                            class="social-icon"
+                            height={24}
+                            loading="eager"
+                            src={link.icon}
+                            width={24}
+                        />
+                    </a>
+                ))
+            }
+        </div>
+    </main>
+</Layout>
