@@ -1,5 +1,7 @@
 {
-    "name": "",
+    "name": "@gregrickaby/astro",
+    "description": "My homepage built with Astro.",
+    "private": true,
     "type": "module",
     "version": "0.0.1",
     "scripts": {
