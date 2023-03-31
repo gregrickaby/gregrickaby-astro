@@ -1,37 +1,75 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { Image } from 'astro:assets'
+import { getImage } from 'astro:assets'
 import config from '../lib/config'
-import avatar from '../assets/avatar.avif'
+import avatar from '../assets/avatar.jpg'
+const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
 ---
 
 <Layout title={config.siteTitle} description={config.siteDescription}>
     <main>
-        <Image
+        <img
             alt={config.name}
             class="avatar"
-            height={160}
-            src={avatar}
-            width={160}
+            height={optimizedAvatar.attributes.height}
             loading="eager"
+            src={optimizedAvatar.src}
+            width={optimizedAvatar.attributes.width}
         />
-        <h1 class="text-gradient">{config.name}</h1>
+        <h1>{config.name}</h1>
         <p>{config.bio}</p>
         <div class="social-links">
             {
-                config.socialLinks.map((link) => (
-                    <a aria-label={link.name} href={link.url} rel="author">
-                        <img
-                            alt={link.name}
-                            class="social-icon"
-                            height={24}
-                            loading="eager"
-                            src={link.icon}
-                            width={24}
-                        />
-                    </a>
-                ))
+                config.socialLinks
+                    .filter((link) => link.name !== 'Amazon Author')
+                    .map((link) => (
+                        <a class="button" href={link.url} rel="author">
+                            {link.name}
+                        </a>
+                    ))
             }
         </div>
     </main>
 </Layout>
+
+<style>
+    .avatar {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        box-shadow: var(--shadow);
+    }
+
+    .social-links {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    @media (min-width: 477px) {
+        .social-links {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .button {
+        background-color: var(--secondary);
+        border: 1px solid var(--primary);
+        border-radius: 5px;
+        padding: 0.5rem 2rem;
+        box-shadow: var(--tertiary) 6px 6px 0px 0px;
+        transition: background-color 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99)
+                0s,
+            border-color 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s,
+            box-shadow 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s,
+            transform 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s;
+    }
+
+    .button:hover {
+        background-color: var(--primary-hover);
+        border-color: var(--secondary-hover);
+        box-shadow: var(--primary) 6px 6px 0px 0px;
+        color: var(--secondary);
+        transform: translate(-3px, -3px);
+    }
+</style>

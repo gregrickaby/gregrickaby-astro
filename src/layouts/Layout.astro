@@ -1,7 +1,12 @@
 ---
-import '@fontsource/fira-sans'
-import '@fontsource/abril-fatface'
-import config from '../lib/config'
+import config from '../lib/config.js'
+import { getImage } from 'astro:assets'
+import avatar from '../assets/avatar.jpg'
+import background from '../assets/bg.jpg'
+import ogImage from '../assets/og-image.jpg'
+const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
+const optimizedBackground = await getImage({ src: background, format: 'avif' })
+const optimizedOgImage = await getImage({ src: ogImage, format: 'avif' })
 
 interface Props {
     title: string
@@ -19,25 +24,31 @@ const { title, description } = Astro.props
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="preload" as="image" href="bg.avif" type="image/avif" />
-        <link rel="preconnect" href="https://secure.gravatar.com/" />
-        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-        <link rel="preconnect" href="https://static.cloudflareinsights.com" />
         <link rel="canonical" href="https://gregrickaby.com" />
-        <meta name="theme-color" content="#111111" />
+        <link
+            rel="preload"
+            as="image"
+            href={optimizedAvatar.src}
+            type="image/avif"
+        />
+        <link
+            rel="preload"
+            as="image"
+            href={optimizedBackground.src}
+            type="image/avif"
+        />
         <meta name="robots" content="index, follow" />
         <meta name="generator" content={Astro.generator} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={config.siteUrl} />
         <meta property="og:title" content={config.siteTitle} />
         <meta property="og:description" content={config.metaDescription} />
-        <meta property="og:image" content={config.ogImage} />
+        <meta property="og:image" content={optimizedOgImage.src} />
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={config.siteUrl} />
         <meta property="twitter:title" content={config.siteTitle} />
         <meta property="twitter:description" content={config.metaDescription} />
-        <meta property="twitter:image" content={config.ogImage} />
+        <meta property="twitter:image" content={optimizedOgImage.src} />
         <script
             type="application/ld+json"
             set:html={JSON.stringify({
@@ -50,112 +61,83 @@ const { title, description } = Astro.props
             })}
         ></script>
     </head>
-    <body>
+    <body style={`background-image: url(${optimizedBackground.src});`}>
         <slot />
+        <div class="overlay"></div>
+        <style is:global>
+            :root {
+                --font-sans: sans-serif;
+                --font-serif: serif;
+
+                --white: rgb(255, 255, 255);
+                --black: rgb(0, 0, 0);
+                --primary: rgb(40, 50, 38);
+                --primary-hover: rgb(10, 25, 20);
+                --secondary: rgb(219, 185, 167);
+                --secondary-hover: rgb(200, 160, 140);
+                --tertiary: rgb(118, 53, 53);
+                --tertiary-hover: rgb(100, 40, 40);
+                --overlay: rgba(0, 0, 0, 0.2);
+
+                --shadow: 1px 1px 2px var(--overlay);
+            }
+
+            html {
+                -webkit-font-smoothing: antialiased;
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+            }
+
+            body {
+                background: no-repeat center center/cover;
+                color: var(--primary);
+                font-family: var(--font-sans);
+                font-size: 1.25rem;
+                height: 100vh;
+                line-height: 1.5;
+                padding: 2rem;
+            }
+
+            main {
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                justify-content: center;
+                margin: 0 auto;
+                max-width: 390px;
+                text-align: center;
+            }
+
+            h1 {
+                color: var(--white);
+                font-family: var(--font-serif);
+                font-size: 4rem;
+                font-weight: 700;
+                margin: 0;
+                line-height: normal;
+                text-shadow: var(--shadow);
+            }
+
+            a {
+                color: var(--primary);
+                text-decoration: none;
+            }
+
+            p {
+                color: var(--white);
+                text-shadow: var(--shadow);
+            }
+
+            .overlay {
+                background-color: var(--overlay);
+                height: 100vh;
+                left: 0;
+                position: fixed;
+                top: 0;
+                width: 100vw;
+                z-index: -1;
+            }
+        </style>
     </body>
 </html>
-<style is:global>
-    :root {
-        --font-sans: 'Fira Sans', sans-serif;
-        --font-serif: 'Abril Fatface', serif;
-
-        --accent: #6366f1;
-        --accent-hover: #8b5cf6;
-        --accent-active: #d946ef;
-
-        --angle: 0deg;
-    }
-
-    html {
-        -webkit-font-smoothing: antialiased;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background: url('/bg.avif') no-repeat center center/cover;
-        color: #fff;
-        font-family: var(--font-sans);
-        font-size: 1.25rem;
-        line-height: 1.5;
-        margin: 0;
-        min-height: 100vh;
-    }
-
-    main {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        justify-content: center;
-        margin: auto;
-        max-width: 65ch;
-        padding: 2rem;
-        text-align: center;
-    }
-
-    h1 {
-        font-family: var(--font-serif);
-        font-size: 4rem;
-        font-weight: 700;
-        letter-spacing: 5px;
-        margin: 0;
-        line-height: normal;
-    }
-
-    a {
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .avatar {
-        border-radius: 50%;
-        height: 80px;
-        width: 80px;
-    }
-
-    .text-gradient {
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-
-        animation: 10s rotate linear infinite;
-        background-image: conic-gradient(
-            from var(--angle) at 50% -25%,
-            var(--accent),
-            var(--accent-hover),
-            var(--accent-active),
-            var(--accent)
-        );
-    }
-
-    .social-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
-        padding: 1rem 0;
-    }
-
-    .social-icon {
-        background-color: #fff;
-        border-radius: 50%;
-        padding: 0.35rem;
-    }
-
-    .social-icon:hover {
-        background-color: var(--accent);
-    }
-
-    /* Type definitions for CSS custom properties. */
-    @property --angle {
-        syntax: '<angle>';
-        initial-value: 0deg;
-        inherits: false;
-    }
-
-    @keyframes rotate {
-        to {
-            --angle: 360deg;
-        }
-    }
-</style>
