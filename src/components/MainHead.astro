@@ -4,9 +4,9 @@ import { getImage } from 'astro:assets'
 import avatar from '../assets/avatar.jpg'
 import background from '../assets/bg.jpg'
 import ogImage from '../assets/og-image.jpg'
-const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
-const optimizedBackground = await getImage({ src: background, format: 'avif' })
-const optimizedOgImage = await getImage({ src: ogImage, format: 'avif' })
+const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
+const optimizedBackground = await getImage({ src: background, format: 'webp' })
+const optimizedOgImage = await getImage({ src: ogImage, format: 'webp' })
 
 interface Props {
     title?: string | undefined
@@ -25,12 +25,12 @@ const { title = config.siteTitle, description = config.bio } = Astro.props
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="canonical" href="https://gregrickaby.com" />
 
-<link rel="preload" as="image" href={optimizedAvatar.src} type="image/avif" />
+<link rel="preload" as="image" href={optimizedAvatar.src} type="image/webp" />
 <link
     rel="preload"
     as="image"
     href={optimizedBackground.src}
-    type="image/avif"
+    type="image/webp"
 />
 <link
     rel="preload"

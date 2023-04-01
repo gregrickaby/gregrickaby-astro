@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import { getImage } from 'astro:assets'
 import config from '../lib/config'
 import avatar from '../assets/avatar.jpg'
-const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
+const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
 ---
 
 <Layout>
