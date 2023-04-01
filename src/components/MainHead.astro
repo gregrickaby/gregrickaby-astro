@@ -1,0 +1,63 @@
+---
+import config from '../lib/config.js'
+import { getImage } from 'astro:assets'
+import avatar from '../assets/avatar.jpg'
+import background from '../assets/bg.jpg'
+import ogImage from '../assets/og-image.jpg'
+const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
+const optimizedBackground = await getImage({ src: background, format: 'avif' })
+const optimizedOgImage = await getImage({ src: ogImage, format: 'avif' })
+
+interface Props {
+    title?: string | undefined
+    description?: string | undefined
+}
+const { title = config.siteTitle, description = config.bio } = Astro.props
+---
+
+<meta charset="UTF-8" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="viewport" content="width=device-width" />
+
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="canonical" href="https://gregrickaby.com" />
+<link rel="preload" as="image" href={optimizedAvatar.src} type="image/avif" />
+<link
+    rel="preload"
+    as="image"
+    href={optimizedBackground.src}
+    type="image/avif"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://static.cloudflareinsights.com" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
+    rel="stylesheet"
+/>
+
+<meta name="theme-color" content="#283226" />
+<meta name="generator" content={Astro.generator} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={config.siteUrl} />
+<meta property="og:title" content={config.siteTitle} />
+<meta property="og:description" content={config.metaDescription} />
+<meta property="og:image" content={optimizedOgImage.src} />
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={config.siteUrl} />
+<meta property="twitter:title" content={config.siteTitle} />
+<meta property="twitter:description" content={config.metaDescription} />
+<meta property="twitter:image" content={optimizedOgImage.src} />
+<script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: config.name,
+        jobTitle: config.jobTitle,
+        url: config.siteUrl,
+        sameAs: config.socialLinks.map((link) => link.url),
+    })}
+></script>
