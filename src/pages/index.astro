@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import { getImage } from 'astro:assets'
 import config from '../lib/config'
 import avatar from '../assets/avatar.jpg'
+import Icon from '../components/Icon.astro'
 const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
 ---
 
@@ -24,6 +25,7 @@ const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
                     .filter((link) => link.name !== 'Amazon Author')
                     .map((link) => (
                         <a class="button" href={link.url} rel="author">
+                            <Icon icon={link.icon} />
                             {link.name}
                         </a>
                     ))
@@ -53,6 +55,10 @@ const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
     }
 
     .button {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 0.5rem;
         background-color: var(--secondary);
         border: 1px solid var(--primary);
         border-radius: 3px;
