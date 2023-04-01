@@ -2,7 +2,11 @@
 import { getImage } from 'astro:assets'
 import background from '../assets/bg.jpg'
 import MainHead from '../components/MainHead.astro'
-const optimizedBackground = await getImage({ src: background, format: 'webp' })
+const optimizedBackground = await getImage({
+    src: background,
+    format: 'webp',
+    quality: 60,
+})
 
 interface Props {
     title?: string | undefined
@@ -25,7 +29,7 @@ const { title, description } = Astro.props
                     'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
                     'Helvetica Neue', sans-serif;
                 --font-sans: 'Lato', var(--font-system);
-                --font-serif: 'Playfair Display', var(--font-system);
+                --font-serif: 'Playfair Display', serif;
 
                 --white: rgb(255, 255, 255);
                 --black: rgb(0, 0, 0);

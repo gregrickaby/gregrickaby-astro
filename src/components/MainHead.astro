@@ -5,7 +5,11 @@ import avatar from '../assets/avatar.jpg'
 import background from '../assets/bg.jpg'
 import ogImage from '../assets/og-image.jpg'
 const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
-const optimizedBackground = await getImage({ src: background, format: 'webp' })
+const optimizedBackground = await getImage({
+    src: background,
+    format: 'webp',
+    quality: 60,
+})
 const optimizedOgImage = await getImage({ src: ogImage, format: 'webp' })
 
 interface Props {
