@@ -18,7 +18,7 @@ const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
         />
         <h1>{config.name}</h1>
         <p>{config.bio}</p>
-        <div class="social-links">
+        <nav>
             {
                 config.socialLinks
                     .filter((link) => link.name !== 'Amazon Author')
@@ -28,7 +28,7 @@ const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
                         </a>
                     ))
             }
-        </div>
+        </nav>
     </main>
 </Layout>
 
@@ -40,14 +40,14 @@ const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
         box-shadow: var(--shadow);
     }
 
-    .social-links {
+    nav {
         display: grid;
         grid-template-columns: 1fr;
         gap: 1rem;
     }
 
     @media (min-width: 375px) {
-        .social-links {
+        nav {
             grid-template-columns: repeat(2, 1fr);
         }
     }
@@ -55,7 +55,7 @@ const optimizedAvatar = await getImage({ src: avatar, format: 'avif' })
     .button {
         background-color: var(--secondary);
         border: 1px solid var(--primary);
-        border-radius: 5px;
+        border-radius: 3px;
         padding: 0.5rem 2rem;
         box-shadow: var(--tertiary) 6px 6px 0px 0px;
         transition: background-color 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99)
