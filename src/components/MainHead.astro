@@ -20,9 +20,11 @@ const { title = config.siteTitle, description = config.bio } = Astro.props
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta name="viewport" content="width=device-width" />
-
+<meta name="theme-color" content="#283226" />
+<meta name="generator" content={Astro.generator} />
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="canonical" href="https://gregrickaby.com" />
+
 <link rel="preload" as="image" href={optimizedAvatar.src} type="image/avif" />
 <link
     rel="preload"
@@ -30,16 +32,22 @@ const { title = config.siteTitle, description = config.bio } = Astro.props
     href={optimizedBackground.src}
     type="image/avif"
 />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preconnect" href="https://static.cloudflareinsights.com" />
 <link
-    href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&family=Playfair+Display:wght@400;700&display=swap"
-    rel="stylesheet"
+    rel="preload"
+    as="font"
+    href="/fonts/playfair-display-700.woff2"
+    type="font/woff2"
+    crossorigin
 />
+<link
+    rel="preload"
+    as="font"
+    href="/fonts/lato-400.woff2"
+    type="font/woff2"
+    crossorigin
+/>
+<link rel="preconnect" href="https://static.cloudflareinsights.com" />
 
-<meta name="theme-color" content="#283226" />
-<meta name="generator" content={Astro.generator} />
 <meta property="og:type" content="website" />
 <meta property="og:url" content={config.siteUrl} />
 <meta property="og:title" content={config.siteTitle} />
