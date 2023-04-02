@@ -1,7 +1,7 @@
 const config = {
     siteTitle: 'Greg Rickaby - Building websites since 1997',
     siteDescription: 'Building websites since 1997',
-    siteUrl: 'https://gregrickaby.com',
+    siteUrl: 'https://gregrickaby-astro.vercel.app/',
     metaDescription:
         "Greg's expertise in building websites spans over two decades, and he channels his passion for technology, literature, and photography in everything he does.",
     name: 'Greg Rickaby',
