@@ -1,81 +1,80 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import { getImage } from 'astro:assets'
-import config from '../lib/config'
-import avatar from '../assets/avatar.jpg'
-import Icon from '../components/Icon.astro'
-const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
+import Layout from "~/layouts/Layout.astro";
+import { getImage } from "astro:assets";
+import config from "~/lib/config";
+import avatar from "~/assets/avatar.jpg";
+import Icon from "~/components/Icon.astro";
+const optimizedAvatar = await getImage({ src: avatar, format: "webp" });
 ---
 
 <Layout>
-    <main>
-        <img
-            alt={config.name}
-            class="avatar"
-            height={optimizedAvatar.attributes.height}
-            loading="eager"
-            src={optimizedAvatar.src}
-            width={optimizedAvatar.attributes.width}
-        />
-        <h1>{config.name}</h1>
-        <p>{config.bio}</p>
-        <nav>
-            {
-                config.socialLinks
-                    .filter((link) => link.name !== 'Amazon Author')
-                    .map((link) => (
-                        <a class="button" href={link.url} rel="author">
-                            <Icon icon={link.icon} />
-                            {link.name}
-                        </a>
-                    ))
-            }
-        </nav>
-    </main>
+  <main>
+    <img
+      alt={config.name}
+      class="avatar"
+      height={optimizedAvatar.attributes.height}
+      loading="eager"
+      src={optimizedAvatar.src}
+      width={optimizedAvatar.attributes.width}
+    />
+    <h1>{config.name}</h1>
+    <p>{config.bio}</p>
+    <nav>
+      {
+        config.socialLinks
+          .filter((link) => link.name !== "Amazon Author")
+          .map((link) => (
+            <a class="button" href={link.url} rel="author">
+              <Icon icon={link.icon} />
+              {link.name}
+            </a>
+          ))
+      }
+    </nav>
+  </main>
 </Layout>
 
 <style>
-    .avatar {
-        border-radius: 50%;
-        height: 100px;
-        width: 100px;
-        box-shadow: var(--shadow);
-    }
+  .avatar {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    box-shadow: var(--shadow);
+  }
 
+  nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 375px) {
     nav {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
     }
+  }
 
-    @media (min-width: 375px) {
-        nav {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 0.5rem;
+    background-color: var(--secondary);
+    border: 1px solid var(--primary);
+    border-radius: 3px;
+    padding: 0.5rem 1rem;
+    box-shadow: var(--tertiary) 6px 6px 0px 0px;
+    transition: background-color 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s,
+      border-color 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s,
+      box-shadow 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s,
+      transform 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s;
+  }
 
-    .button {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        gap: 0.5rem;
-        background-color: var(--secondary);
-        border: 1px solid var(--primary);
-        border-radius: 3px;
-        padding: 0.5rem 1rem;
-        box-shadow: var(--tertiary) 6px 6px 0px 0px;
-        transition: background-color 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99)
-                0s,
-            border-color 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s,
-            box-shadow 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s,
-            transform 0.25s cubic-bezier(0.08, 0.59, 0.29, 0.99) 0s;
-    }
-
-    .button:hover {
-        background-color: var(--primary-hover);
-        border-color: var(--secondary-hover);
-        box-shadow: var(--primary) 6px 6px 0px 0px;
-        color: var(--secondary);
-        transform: translate(-3px, -3px);
-    }
+  .button:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--secondary-hover);
+    box-shadow: var(--primary) 6px 6px 0px 0px;
+    color: var(--secondary);
+    transform: translate(-3px, -3px);
+  }
 </style>

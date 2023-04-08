@@ -1,28 +1,28 @@
 ---
 export interface Props {
-    icon: string
-    color?: string
+  icon: string;
+  color?: string;
 }
 
-const { color = 'currentcolor', icon } = Astro.props
+const { color = "currentcolor", icon } = Astro.props;
 ---
 
 <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="40"
-    height="40"
-    viewBox="0 0 256 256"
-    aria-hidden="true"
-    stroke={color}
-    fill={color}
+  xmlns="http://www.w3.org/2000/svg"
+  width="40"
+  height="40"
+  viewBox="0 0 256 256"
+  aria-hidden="true"
+  stroke={color}
+  fill={color}
 >
-    <g set:html={icon} />
+  <g set:html={icon} />
 </svg>
 
 <style>
-    svg {
-        vertical-align: middle;
-        width: 1.5rem;
-        height: 1.5rem;
-    }
+  svg {
+    vertical-align: middle;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 </style>

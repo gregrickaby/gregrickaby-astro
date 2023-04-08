@@ -1,22 +1,22 @@
 ---
-import config from '../lib/config.js'
-import { getImage } from 'astro:assets'
-import avatar from '../assets/avatar.jpg'
-import background from '../assets/bg.jpg'
-import ogImage from '../assets/og-image.jpg'
-const optimizedAvatar = await getImage({ src: avatar, format: 'webp' })
+import config from "~/lib/config.js";
+import { getImage } from "astro:assets";
+import avatar from "~/assets/avatar.jpg";
+import background from "~/assets/bg.jpg";
+import ogImage from "~/assets/og-image.jpg";
+const optimizedAvatar = await getImage({ src: avatar, format: "webp" });
 const optimizedBackground = await getImage({
-    src: background,
-    format: 'webp',
-    quality: 60,
-})
-const optimizedOgImage = await getImage({ src: ogImage, format: 'webp' })
+  src: background,
+  format: "webp",
+  quality: 60,
+});
+const optimizedOgImage = await getImage({ src: ogImage, format: "webp" });
 
 interface Props {
-    title?: string | undefined
-    description?: string | undefined
+  title?: string | undefined;
+  description?: string | undefined;
 }
-const { title = config.siteTitle, description = config.bio } = Astro.props
+const { title = config.siteTitle, description = config.bio } = Astro.props;
 ---
 
 <meta charset="UTF-8" />
@@ -31,24 +31,24 @@ const { title = config.siteTitle, description = config.bio } = Astro.props
 
 <link rel="preload" as="image" href={optimizedAvatar.src} type="image/webp" />
 <link
-    rel="preload"
-    as="image"
-    href={optimizedBackground.src}
-    type="image/webp"
+  rel="preload"
+  as="image"
+  href={optimizedBackground.src}
+  type="image/webp"
 />
 <link
-    rel="preload"
-    as="font"
-    href="/fonts/playfair-display-700.woff2"
-    type="font/woff2"
-    crossorigin
+  rel="preload"
+  as="font"
+  href="/fonts/playfair-display-700.woff2"
+  type="font/woff2"
+  crossorigin
 />
 <link
-    rel="preload"
-    as="font"
-    href="/fonts/lato-400.woff2"
-    type="font/woff2"
-    crossorigin
+  rel="preload"
+  as="font"
+  href="/fonts/lato-400.woff2"
+  type="font/woff2"
+  crossorigin
 />
 <link rel="preconnect" href="https://static.cloudflareinsights.com" />
 
@@ -63,13 +63,13 @@ const { title = config.siteTitle, description = config.bio } = Astro.props
 <meta property="twitter:description" content={config.metaDescription} />
 <meta property="twitter:image" content={optimizedOgImage.src} />
 <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Person',
-        name: config.name,
-        jobTitle: config.jobTitle,
-        url: config.siteUrl,
-        sameAs: config.socialLinks.map((link) => link.url),
-    })}
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: config.name,
+    jobTitle: config.jobTitle,
+    url: config.siteUrl,
+    sameAs: config.socialLinks.map((link) => link.url),
+  })}
 ></script>
