@@ -1,0 +1,7 @@
+!/.*.{js,css,html}
+*.min.js
+.*cache/
+build/
+dist/
+node_modules/
+public/
