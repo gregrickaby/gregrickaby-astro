@@ -22,7 +22,7 @@ const optimizedAvatar = await getImage({ src: avatar, format: "webp" });
     <nav>
       {
         config.socialLinks
-          .filter((link) => link.name !== "Amazon Author")
+          .filter((link) => !["Instagram", "Amazon Author"].includes(link.name))
           .map((link) => (
             <a class="button" href={link.url} rel="author">
               <Icon icon={link.icon} />
