@@ -1,9 +1,19 @@
 {
-  "name": "@gregrickaby/astro",
-  "description": "My homepage built with Astro.",
+  "name": "@gregrickaby/gregrickaby.com",
+  "description": "My homepage",
+  "homepage": "https://gregrickaby.com/",
   "private": true,
   "type": "module",
   "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregrickaby/gregrickaby.com.git"
+  },
+  "author": "Greg Rickaby <greg@gregrickaby.com>",
+  "bugs": {
+    "url": "https://github.com/gregrickaby/gregrickaby.com/issues"
+  },
   "scripts": {
     "astro": "astro",
     "build": "astro build",
