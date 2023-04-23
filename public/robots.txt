@@ -1,2 +1,5 @@
 User-agent: *
-Allow: /
+Disallow: /blog/wp-admin/
+Disallow: /blog/wp-content/uploads/wpforms/
+
+Sitemap: https://gregrickaby.com/sitemap.xml
