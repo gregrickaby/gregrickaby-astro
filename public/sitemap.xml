@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://gregrickaby.com</loc>
-    <lastmod>2023-03-31</lastmod>
+    <lastmod>2023-04-23</lastmod>
   </url>
+    <sitemap>
+    <loc>https://gregrickaby.com/blog/sitemap.xml</loc>
+  </sitemap>
 </urlset>
